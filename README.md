@@ -58,6 +58,7 @@ Posting Date
 
 ## Project Structure
 
+```
 nyc_jobs_pipeline/
 │
 ├── data/
@@ -73,6 +74,7 @@ nyc_jobs_pipeline/
 ├── tests/
 ├── main_pipeline.py
 └── README.md
+```
 
 
 ## Pipeline Steps
