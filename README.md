@@ -1,92 +1,158 @@
-# Coding Challenge
+## Project Overview
 
-This Code assessment represents a coding challenge for Data Engineering roles.
+This project is an end-to-end Data Engineering pipeline built using PySpark to analyze NYC job postings data and generate actionable salary intelligence insights.
 
-## Purpose
+The objective was to transform raw job postings data into structured, analysis-ready datasets and derive business KPIs such as salary trends, highest paid skills, agency salary distribution, and qualification-based salary comparisons.
 
-- Evaluate your coding abilities and your software engineering skills
-- Judge your technical experience
-- Understand how you design the solution 
-- Have a technical coversation once the code submission is done
+## Architecture Overview
 
-## Challenge 
+Raw CSV Data
+      ↓
+Data Ingestion (PySpark)
+      ↓
+Data Cleaning
+      ↓
+Feature Engineering
+      ↓
+KPI Computation
+      ↓
+Visualization
+      ↓
+Processed Output Storage
 
-In this challenge, we will use a dataset having the current job posting hosted by the City of New york which is available on the City of New York's official jobs site (https://www1.nyc.gov/jobs/index.page).
+## Tech Stack
 
-- Internal postings availble to city employees and external postings availbale to the public are included. 
-- Data is accesible in the CSV file [nyc-jobs.csv](https://github.com/ProjectsForDataChapter/data_engineering_takehome1/blob/main/dataset/nyc-jobs.csv)
+Python 3.x
 
-This challenge is composed of following steps: 
+PySpark
 
-### Data Exploration
+Pandas
 
-- Provide a detailed analysis of source data: Column values (eg: Numerical vs character), categorical columns, etc. 
-- List of KPIs to be resolved:
-  - Whats the number of jobs posting per category (Top 10)? 
-  - Whats the salary distribution per job category? 
-  - Is there any correlation between the higher degree and the salary?
-  - Whats the job posting having the highest salary per agency? 
-  - Whats the job positings average salary per agency for the last 2 years? 
-  - What are the highest paid skills in the US market? 
+Matplotlib
 
-### Data Processing
- 
-- Create functions to process your dataset (Cleaning, column pre-processing, data wrangling, transformation etc) 
-- Apply atleast 3 feature engineering techniques 
-- Features removal based on the exploration/ profiling.
-- Store your processed data into a target file
+Plotly
 
-## Expectations
+Java 11
 
-- Above mentioned challenge
-- Test cases 
-- Code Comments 
-- If any deployment to be done, proposals of the deployment steps
-- If you had to trigger your code, please suggest your approach. 
+Spark Standalone (local mode)
 
-## Coding Instructions
+## Dataset Description
 
-- PySpark should be used
-- Feel free to use any libraries (you can use pip install, if needed)
-- Use a visualization library to present your analysis results.
-- Any learnings/ challenges/ considerations/ assumptions, please document in [MyDocument.md](https://github.com/ProjectsForDataChapter/data_engineering_takehome1/blob/main/MyDocument.md)
+The dataset contains NYC job postings including:
 
-## Technical Support:
+Job ID
 
-1. Clone the parent repository to your local. 
-     - If git clone using password does not work follow the below steps:
-       a. Click on your profile -> settings -> Developer settings -> Personal Access Tokens -> Tokens(Classic) -> Generate New Token
-       b. In select scopes, give all repo permissions -> Click on Generate Token
-       c. Copy the personal access token generated and copy it somewhere as it will be not visible again.
-       d. In git terminal when you run git clone command (using HTTPS protocol) -> enter git id and for password enter the personal access token generated in previous step.
-        
-     - **Access to the parent repo will be removed within 4 days from the day you are made as collaborator**.
-     
-2. Push the cloned repo into **your own** Github account.
-     - **Please don't commit anything to the parent repo, everything should be done in your own Github repo**.
-     
-3. Follow the installation instructions in [INSTALL.md](https://github.com/ProjectsForDataChapter/data_engineering_takehome1/blob/main/INSTALL.md)
-4. Open the Jupyter notebook home page, using the link similar to the one highlighted in the picture 
+Agency
 
-  ![jupyter-notebook](https://github.com/ProjectsForDataChapter/data_engineering_takehome1/blob/main/pictures/docker-compose.png)
+Business Title
 
-5. Open the notebook (assesment_notebook.ipynb). 
-6. Read the documentation and run the cells accordingly. Once you create a spark session you should be able to see application **pyspark-assesment** running in the Spark Master UI as below. 
+Job Category
 
-  ![spark-application](https://github.com/ProjectsForDataChapter/data_engineering_takehome1/blob/main/pictures/spark-application.png)
+Salary Range From / To
 
-By now you would have already have below things in place:
+Preferred Skills
 
-- Created Spark cluster with a master and 2 worker nodes.
-- Notebook to start working having the basic libraries imported (Please feel free to import any new library, if required). 
-- Datasets read that is required for your activity.
-- Sample function within the notebook arriving at a basic KPI.
-- Sample test case for testing the function. 
+Minimum Qualification Requirements
 
-## Submission:
- 
-Once you have completed your work, share an invite of **your own** GitHub repo to **projectsfordatachapter@gmail.com**, and send out an email to our hiring team. 
-We will review your work.
+Posting Date
 
-# Happy Coding!!
+## Project Structure
 
+nyc_jobs_pipeline/
+│
+├── data/
+├── src/
+│   ├── spark_session.py
+│   ├── data_loader.py
+│   ├── data_cleaning.py
+│   ├── feature_engineering.py
+│   ├── kpi_builder.py
+│   ├── visualization.py
+│   └── utils.py
+│
+├── tests/
+├── main_pipeline.py
+└── README.md
+
+
+## Pipeline Steps
+1️⃣ Data Ingestion
+
+Loaded CSV into Spark DataFrame
+
+Schema validation
+
+2️⃣ Data Cleaning
+
+Removed duplicates
+
+Filtered null salary records
+
+Selected required columns
+
+3️⃣ Feature Engineering
+
+Created derived columns:
+
+Avg_Salary
+
+Salary_Spread
+
+Salary_Band
+
+Seniority_Level
+
+Degree_Level
+
+Posting_Year
+
+Job_Posting_Age
+
+Text fields were cleaned and parsed to extract skills and qualification levels.
+
+
+## Visualization
+
+Matplotlib used for static charts
+
+Plotly used for interactive dashboards
+
+Spark DataFrames converted to Pandas for plotting
+
+
+## How to Run
+
+Install dependencies
+
+pip install -r requirements.txt
+
+
+Ensure Java 11 is installed and JAVA_HOME is set
+
+Run pipeline
+
+python main_pipeline.py
+
+
+## Performance Considerations
+
+Column pruning applied during cleaning
+
+Filtering performed before aggregations
+
+Avoided large .toPandas() conversions
+
+Used Spark distributed processing for aggregations
+
+
+## Future Enhancements
+
+Deploy pipeline using Airflow
+
+Store output in AWS S3 / Data Lake
+
+Add automated testing suite
+
+Implement Docker containerization
+
+Build BI dashboard integration
