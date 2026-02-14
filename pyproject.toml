@@ -1,0 +1,13 @@
+[project]
+name = "dubai-assignment"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "pandas>=3.0.0",
+    "plotly>=6.5.2",
+    "pyspark>=4.1.1",
+    "apache-airflow==2.10.4",
+]
