@@ -147,14 +147,73 @@ Avoided large .toPandas() conversions
 Used Spark distributed processing for aggregations
 
 
-## Future Enhancements
 
-Deploy pipeline using Airflow
+Minimal Deployment Steps (Docker + Airflow)
+1️⃣ Prerequisites
 
-Store output in AWS S3 / Data Lake
+Make sure installed:
 
-Add automated testing suite
+docker --version
+docker compose version
 
-Implement Docker containerization
+2️⃣ Start Services
 
-Build BI dashboard integration
+From project root:
+
+docker compose -f Docker-compose-airflow.yml up -d
+
+
+This will:
+
+Start PostgreSQL
+
+Initialize Airflow DB
+
+Install required Python packages
+
+Start Webserver
+
+Start Scheduler
+
+Start Triggerer
+
+3️⃣ Verify Containers
+docker ps
+
+
+Ensure these are running:
+
+airflow_postgres
+
+airflow_webserver
+
+airflow_scheduler
+
+airflow_triggerer
+
+4️⃣ Access Airflow UI
+
+Open in browser:
+
+http://localhost:8090
+
+
+Login:
+
+Username: admin
+Password: admin
+
+5️⃣ Enable and Run DAG
+
+Go to DAGs page
+
+Enable nyc_jobs_pipeline
+
+Trigger manually (if required)
+
+6️⃣ Stop Services
+docker compose -f Docker-compose-airflow.yml down
+
+## Deployment Complete
+
+Airflow + PostgreSQL + Spark dependencies are now running locally via Docker.
